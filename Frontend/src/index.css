@@ -1,0 +1,423 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #2D6A4F;
+  --color-secondary: #74C0E8;
+  --color-accent: #D4A843;
+  --color-bg:rgb(240, 230, 216) ;       
+  --color-bg-card: #FFFFFF;
+  --color-text-dark: #1C2B1E;
+  --color-text-muted: #6B7C6E;
+  --color-clay: #A0522D;
+  --color-success: #52B788;
+  --color-error: #E63946;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius-card: 16px;
+  --shadow-card: 0 4px 24px rgba(45, 106, 79, 0.10);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #245a42;
+}
+
+/* Mirror shimmer effect on product cards */
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: none;
+  pointer-events: none;
+}
+
+.shimmer-effect:hover::after {
+  animation: shimmer 0.6s ease forwards;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Leaf fall animation */
+.leaf {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.leaf:nth-child(1) { left: 10%; animation: leafFall 10s linear infinite; animation-delay: 0s; }
+.leaf:nth-child(2) { left: 25%; animation: leafFall 13s linear infinite; animation-delay: 2s; }
+.leaf:nth-child(3) { left: 45%; animation: leafFall 11s linear infinite; animation-delay: 4s; }
+.leaf:nth-child(4) { left: 65%; animation: leafFall 14s linear infinite; animation-delay: 1s; }
+.leaf:nth-child(5) { left: 80%; animation: leafFall 9s linear infinite; animation-delay: 3s; }
+.leaf:nth-child(6) { left: 90%; animation: leafFall 12s linear infinite; animation-delay: 5s; }
+
+@keyframes leafFall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* WhatsApp pulse ring */
+.whatsapp-pulse::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25D366;
+  animation: pulseRing 2s infinite;
+  z-index: -1;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Pinterest-style masonry grid */
+.pin-grid {
+  column-count: 4;
+  column-gap: 16px;
+}
+
+.pin-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.pin-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f5f0eb, #ece5db);
+}
+
+/* Varied pin heights for Pinterest stagger effect */
+.pin-short { height: 240px; }
+.pin-medium { height: 300px; }
+.pin-tall { height: 370px; }
+.pin-extra-tall { height: 440px; }
+
+/* Responsive columns */
+@media (max-width: 1280px) {
+  .pin-grid { column-count: 3; }
+}
+
+@media (max-width: 768px) {
+  .pin-grid { column-count: 2; column-gap: 12px; }
+  .pin-item { margin-bottom: 12px; }
+  .pin-short { height: 200px; }
+  .pin-medium { height: 250px; }
+  .pin-tall { height: 310px; }
+  .pin-extra-tall { height: 370px; }
+}
+
+@media (max-width: 480px) {
+  .pin-grid { column-count: 2; column-gap: 10px; }
+  .pin-item { margin-bottom: 10px; border-radius: 12px; }
+  .pin-card { border-radius: 12px; }
+  .pin-short { height: 180px; }
+  .pin-medium { height: 220px; }
+  .pin-tall { height: 270px; }
+  .pin-extra-tall { height: 320px; }
+}
+
+/* Custom range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Loader mandala spin */
+.mandala-spin {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Toast custom styles */
+.toast-custom {
+  background: var(--color-primary) !important;
+  color: white !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Image zoom on hover */
+.img-zoom-container {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+.img-zoom-container img {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.img-zoom-container:hover img {
+  transform: scale(1.08);
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ===== SHOP PAGE STYLES ===== */
+
+/* Custom checkbox for shop filters */
+.shop-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  background-color: white;
+}
+
+.shop-checkbox:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.shop-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 1.5px;
+  left: 4.5px;
+  width: 5px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.shop-checkbox:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.08);
+}
+
+/* Custom radio for shop filters */
+.shop-radio {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  background-color: white;
+}
+
+.shop-radio:checked {
+  border-color: var(--color-primary);
+  border-width: 2px;
+}
+
+.shop-radio:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+.shop-radio:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.08);
+}
+
+/* Filter sidebar - sticky with internal scroll */
+.shop-filter-sidebar {
+  position: sticky;
+  top: 80px;
+}
+
+.shop-filter-sidebar > div {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.shop-filter-sidebar > div::-webkit-scrollbar {
+  width: 3px;
+}
+
+.shop-filter-sidebar > div::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.shop-filter-sidebar > div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Range slider - green fill */
+input[type="range"] {
+  background: linear-gradient(
+    to right,
+    var(--color-primary) 0%,
+    var(--color-primary) var(--range-progress, 100%),
+    #e5e7eb var(--range-progress, 100%),
+    #e5e7eb 100%
+  );
+}
+
